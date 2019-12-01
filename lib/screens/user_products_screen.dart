@@ -33,6 +33,7 @@ class UserProductsScreen extends StatelessWidget {
           itemBuilder: (_, i) => Card(
             elevation: 3,
             child: UserProductItem(
+              id: productData.items[i].id,
               title: productData.items[i].title,
               imgUrl: productData.items[i].imageUrl,
             ),
