@@ -9,6 +9,7 @@ class ProductItem extends StatelessWidget {
   Widget build(BuildContext context) {
     final cart = Provider.of<Cart>(context, listen: false);
     final product = Provider.of<Product>(context, listen: false);
+    final scaffold = Scaffold.of(context);
 
     return ClipRRect(
       borderRadius: BorderRadius.circular(10),
@@ -31,8 +32,14 @@ class ProductItem extends StatelessWidget {
                 product.isFavourite ? Icons.favorite : Icons.favorite_border,
                 color: Theme.of(context).accentColor,
               ),
-              onPressed: () {
-                product.toggleFavourite();
+              onPressed: () async {
+                try {
+                  await product.toggleFavourite();
+                } catch (error) {
+                  scaffold.showSnackBar(SnackBar(
+                    content: Text('An error occured.'),
+                  ));
+                }
               },
             ),
 //            child: Text('Never Changes!'),
